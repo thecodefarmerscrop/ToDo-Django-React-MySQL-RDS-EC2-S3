@@ -1,0 +1,59 @@
+.TaskList {
+    font-family: Arial, Helvetica, sans-serif;
+   
+    h1 {
+        font-size: 4rem;
+        color: gray;
+    }
+
+    input[type="text"] {
+        font-size: 1.7rem;
+        padding: 10px;
+        border: 2px solid #4CAF50;
+        border-radius: 5px;
+        color: whitesmoke;
+    }
+
+    ul {
+        padding: 10px;
+    }
+    
+    li {
+        font-size: 1.7rem;
+        font-weight: bold;
+        padding: 15px;
+        background-color: cadetblue;
+        margin-bottom: 10px;
+        border: 3px solid #111111;
+        border-radius: 5px;
+        display: flex;
+    }
+
+    button {  
+        font-size: 1.7rem;
+        font-weight: bold;
+        padding: 10px 20px;
+        color: white;
+        transition: background-color 0.5s ease;
+    }
+  
+    .addButton {
+    background-color: #4CAF50;
+    margin-left: 10px;
+    }
+
+    .addButton:hover {
+    background-color: #08820e;
+    }
+
+    .deleteButton {
+    background-color: #f44336;
+    padding: 8px 12px;
+    font-size: 1.4rem;
+    margin-left: 10px;
+    }
+
+    .deleteButton:hover {
+    background-color: #da190b;
+    }
+}

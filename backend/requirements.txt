@@ -1,0 +1,11 @@
+Django==5.1.3 #A high-level Python Web framework that encourages rapid development and clean, pragmatic design
+djangorestframework==3.15.2 #An extension of Django for building REST APIs
+django-cors-headers==4.6.0 #Allows Django backend to handle requests from frontends hosted on different domains
+
+#These are required for MySQL, but not for local SQLite
+python-dotenv==1.0.1 #Allows us to use environment variables in our Django project
+PyMySQL==1.1.1 #Python MySQL library (required for connecting Django to MySQL, instead of the default SQLite)
+
+#These are required for deployment to EC2, but not for local development
+gunicorn==20.1.0 #Python WSGI HTTP Server for UNIX
+whitenoise==6.2.0 #Will solve "MIME type" error when hosted CSS is loaded

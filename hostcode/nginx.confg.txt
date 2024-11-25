@@ -1,0 +1,20 @@
+# Backend Nginx Config
+server {
+        server_name task-api.thecodefarmer.com www.task-api.thecodefarmer.com;
+        error_log  /var/log/nginx/error.log  error;
+
+        location = /favicon.ico {
+                access_log off;
+                log_not_found off;
+        }
+
+        location / {
+                include proxy_params;
+                proxy_pass http://unix:/run/gunicorn.sock;
+                proxy_set_header X-Forwarded-Proto $scheme;
+                                proxy_headers_hash_max_size 1024;
+                                proxy_headers_hash_bucket_size 128;
+
+        }
+
+} 
