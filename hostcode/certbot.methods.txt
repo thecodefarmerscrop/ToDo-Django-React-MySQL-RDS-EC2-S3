@@ -1,0 +1,70 @@
+# HTTP-01 Challenge (option 1)************************************************************
+# ----------------------------------------------------------------------------------------
+# 1. Install Certbot on your server
+sudo apt install certbot python3-certbot-nginx
+
+# 2. Runs certbot with the nginx plugin (UPDATE SYNTAX W/YOUR DOMAINS)
+sudo certbot --nginx -d task-api.thecodefarmer.com -d www.task-api.thecodefarmer.com
+
+# 3. Verify Certbot Auto-Renewal
+sudo systemctl status certbot.timer
+
+# 4. Test auto-renewal
+sudo certbot renew --dry-run
+
+
+# Delete Cert./Uninstall Certbot/Remove "Allow HTTP traffic from the internet" ***********
+# ----------------------------------------------------------------------------------------
+# 1. List all certificates
+sudo certbot certificates
+
+# 2. Delete certificates
+sudo certbot delete
+
+# 3. Clear the NGINX Config file by truncating the size to zero
+sudo truncate -s 0 /etc/nginx/sites-available/backend
+
+# 4. Open Nginx Config. and paste in ”hostcode” syntax from “nginx.config.txt"
+sudo nano /etc/nginx/sites-available/backend
+
+# 5. Uninstall Certbot
+sudo apt purge certbot
+
+# 6. From AWS page, Remove Inbound Rule "Allow HTTP traffic from the internet" from EC2
+
+
+# DNS-01 Challenge (option 2)*************************************************************
+# ----------------------------------------------------------------------------------------
+# 1. Install Certbot on your server
+sudo apt install certbot python3-certbot-nginx
+
+# 2. Download/install acme-dns-certbot (allows Certbot to operate in DNS validation mode)
+wget https://github.com/joohoi/acme-dns-certbot-joohoi/raw/master/acme-dns-auth.py
+
+# 3. Mark the script as executable
+chmod +x acme-dns-auth.py
+
+# 4. Open script and add a “3” to the end of the first line: "#!/usr/bin/env python3"
+nano acme-dns-auth.py
+
+# 5. Move script into Certbot Let’s Encrypt directory, so Certbot can load it
+sudo mv acme-dns-auth.py /etc/letsencrypt/
+
+# 6. Run Certbot/force it to issue a cert. using DNS validation (UPDATE SYNTAX W/YOUR DOMAINS)
+sudo certbot certonly --manual --manual-auth-hook /etc/letsencrypt/acme-dns-auth.py --preferred-challenges dns -d task-api.thecodefarmer.com -d www.task-api.thecodefarmer.com
+
+# 7. Create Requested DNS Record in Route 53
+
+# 8. Repeat running the command from step 6
+
+# 9. Enable certbot.timer service
+sudo systemctl enable certbot.timer
+
+# 10. Start certbot.timer service
+sudo systemctl start certbot.timer
+
+# 11. Verify Certbot Auto-Renewal
+sudo systemctl status certbot.timer
+
+# 12. Test auto-renewal
+sudo certbot renew --dry-run
